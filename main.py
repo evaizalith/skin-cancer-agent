@@ -9,6 +9,8 @@ from env import SkinCancerEnv
 import torch
 from tensorflow.keras import utils
 from tensorflow.keras import models
+from dataset import build_training_ds
+import numpy as np
 
 def llm(prompt, pipe, stop=["\n"]):
     response = pipe(
@@ -84,6 +86,7 @@ def main():
     env.nn = keras.saving.load_model("best_model.keras")
 
     env.loadPatientData("test-metadata.csv", "test-image.hdf5")
+
 
     instruction = """
     Categorize a skin lesion as benign or malignant utilizing interleaving Thought, Action, and Observation steps. Thought can reason about the current situation, and Action can be one of three types:
